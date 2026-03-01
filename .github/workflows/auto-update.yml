@@ -1,0 +1,90 @@
+name: Update Documentation
+
+on:
+  schedule:
+    # 每天早上 9 点（香港时间）运行
+    - cron: '0 1 * * *'
+  workflow_dispatch:  # 允许手动触发
+
+jobs:
+  update-docs:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Set up Git
+        run: |
+          git config --global user.name 'Claude Code Bot'
+          git config --global user.email 'claude-bot@users.noreply.github.com'
+
+      - name: Check for updates
+        id: check_updates
+        run: |
+          echo "🔍 检查 Claude Code 官方文档更新..."
+
+          # 获取最新 changelog
+          curl -s https://code.claude.com/docs/en/changelog.md > /tmp/changelog_new.md
+
+          # 检查是否有变更
+          if [ -f changelog_cache.md ]; then
+            if ! diff -q /tmp/changelog_new.md changelog_cache.md >/dev/null 2>&1; then
+              echo "has_update=true" >> $GITHUB_OUTPUT
+              echo "🆕 检测到 changelog 更新"
+            else
+              echo "has_update=false" >> $GITHUB_OUTPUT
+              echo "✅ 无更新"
+            fi
+          else
+            echo "has_update=false" >> $GITHUB_OUTPUT
+            echo "📝 首次运行，缓存 changelog"
+          fi
+
+          cp /tmp/changelog_new.md changelog_cache.md
+
+      - name: Update CHANGELOG
+        if: steps.check_updates.outputs.has_update == 'true'
+        run: |
+          echo "📝 更新 CHANGELOG.md..."
+
+          # 提取新版本号
+          NEW_VERSION=$(grep -oP '\d+\.\d+\.\d+' /tmp/changelog_new.md | head -1)
+
+          # 更新 CHANGELOG
+          cat > CHANGELOG.md << EOF
+          # 更新日志
+
+          ## [${NEW_VERSION}] - $(date '+%Y-%m-%d')
+
+          检测到官方 changelog 更新，查看完整内容：
+          https://code.claude.com/docs/en/changelog.md
+
+          ---
+
+          历史更新记录请查看 [Git History](https://github.com/boxspace/claude-code-guide/commits/main)
+          EOF
+
+          git add CHANGELOG.md
+
+      - name: Commit and push
+        if: steps.check_updates.outputs.has_update == 'true'
+        run: |
+          git commit -m "📚 自动更新 CHANGELOG [skip ci]"
+          git push
+
+      - name: Create issue if needed
+        if: steps.check_updates.outputs.has_update == 'true'
+        uses: actions/github-script@v7
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          script: |
+            github.rest.issues.create({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              title: '🆕 检测到 Claude Code 更新',
+              body: '官方 changelog 有更新，请查看：https://code.claude.com/docs/en/changelog.md\n\n需要手动更新文档内容。',
+              labels: ['update', 'documentation']
+            })

@@ -24,6 +24,7 @@
 
 ### 高级用法
 - **[高级特性](docs/advanced.md)** - MCP、Skills、Hooks 深入讲解（待完成）
+- **[大规模 Review + 批量 Fix 最佳实践](docs/batch-review-fix-guide.md)** - 避免上下文溢出的工作流程
 - **[实战案例](examples/use-cases.md)** - 真实社区案例分析（待完成）
 
 ## 🛠️ 运维相关
@@ -44,6 +45,7 @@ claude-code-guide/
 ├── docs/                  # 详细文档
 │   ├── getting-started.md # 快速开始
 │   ├── features.md        # 核心功能
+│   ├── batch-review-fix-guide.md  # 批量 Review + Fix 最佳实践
 │   └── advanced.md        # 高级特性
 ├── examples/              # 实例
 │   └── use-cases.md       # 实战案例
@@ -81,6 +83,7 @@ claude-code-guide/
 | README | ✅ 完成 | 100% |
 | 快速开始 | ✅ 完成 | 100% |
 | 核心功能 | ✅ 完成 | 100% |
+| 批量 Review + Fix 指南 | ✅ 完成 | 100% |
 | 高级特性 | 🚧 进行中 | 60% |
 | 实战案例 | 🚧 进行中 | 70% |
 | 更新日志 | ✅ 自动更新 | - |

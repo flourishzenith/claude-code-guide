@@ -25,6 +25,7 @@
 ### 高级用法
 - **[高级特性](docs/advanced.md)** - MCP、Skills、Hooks 深入讲解（待完成）
 - **[大规模 Review + 批量 Fix 最佳实践](docs/batch-review-fix-guide.md)** - 避免上下文溢出的工作流程
+- **[/simplify 和 /batch 命令指南](docs/simplify-batch-guide.md)** - v2.1.63 新命令使用指南
 - **[实战案例](examples/use-cases.md)** - 真实社区案例分析（待完成）
 
 ## 🛠️ 运维相关

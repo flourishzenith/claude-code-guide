@@ -23,7 +23,7 @@
   - 远程控制
 
 ### 高级用法
-- **[高级特性](docs/advanced.md)** - MCP、Skills、Hooks 深入讲解（待完成）
+- **[高级特性](docs/advanced.md)** - MCP、Skills、Hooks 深入讲解
 - **[大规模 Review + 批量 Fix 最佳实践](docs/batch-review-fix-guide.md)** - 避免上下文溢出的工作流程
 - **[/simplify 和 /batch 命令指南](docs/simplify-batch-guide.md)** - v2.1.63 新命令使用指南
 - **[实战案例](examples/use-cases.md)** - 真实社区案例分析（待完成）
@@ -47,6 +47,7 @@ claude-code-guide/
 │   ├── getting-started.md # 快速开始
 │   ├── features.md        # 核心功能
 │   ├── batch-review-fix-guide.md  # 批量 Review + Fix 最佳实践
+│   ├── simplify-batch-guide.md    # /simplify 和 /batch 指南
 │   └── advanced.md        # 高级特性
 ├── examples/              # 实例
 │   └── use-cases.md       # 实战案例
@@ -85,7 +86,8 @@ claude-code-guide/
 | 快速开始 | ✅ 完成 | 100% |
 | 核心功能 | ✅ 完成 | 100% |
 | 批量 Review + Fix 指南 | ✅ 完成 | 100% |
-| 高级特性 | 🚧 进行中 | 60% |
+| /simplify 和 /batch 指南 | ✅ 完成 | 100% |
+| 高级特性 | ✅ 完成 | 100% |
 | 实战案例 | 🚧 进行中 | 70% |
 | 更新日志 | ✅ 自动更新 | - |
 
